@@ -64,20 +64,8 @@ public class Controlador {
 	@PostMapping("listaJuegos")
 	public String verListaJuegos(@RequestParam("user") String user,
 			 				     @RequestParam("pass") String pass,
-			 				     HttpServletRequest r){
-		Videojuego v1 = new Videojuego();
-		v1.setNombre("GTAV");
-		v1.setCompania("Rockstar");
-		v1.setNotaMedia(8);
-		
-		Videojuego v2 = new Videojuego();
-		v2.setNombre("GTAIV");
-		v2.setCompania("Rockstar");
-		v2.setNotaMedia(2);
-		
-		dv.save(v1);
-		dv.save(v2);		
-		
+			 				     HttpServletRequest r){		
+		 
 		r.setAttribute("listado", dv.findAll());
 		
 		List<Usuario> ulista = ud.findByUsuario(user);
@@ -86,9 +74,9 @@ public class Controlador {
 		boolean uspassVerificado = false;
 		System.out.println(ulista.get(0).getUsuario());
 		for (int i = 0; i < ulista.size(); i++) {
-			if(ulista.get(i).getUsuario().toString().equals(user) ) {
+			if(ulista.get(i).getUsuario().equals(user) ) {
 				System.out.println(ulista);
-				if(ulista.get(i).getContrasenia().toString().equals(pass) ) {
+				if(ulista.get(i).getContrasenia().equals(pass) ) {
 					System.out.println("entro");
 					usnameVerificado = true;
 					uspassVerificado = true;
@@ -100,6 +88,28 @@ public class Controlador {
 		 if(usnameVerificado == true && uspassVerificado == true) {
 			 return "listaVideojuegos";
 		 }else return "errorLista";
+		
+	}
+	
+	@RequestMapping("adicionar")
+	public String veradicionar() {
+		return "adicionar";
+	}
+	
+	@PostMapping("addJuego")
+	public String addJuego(@RequestParam("nombre") String nombre,
+						   @RequestParam("compania") String compania,
+						   @RequestParam("nota") int nota,
+						   HttpServletRequest r) {
+		Videojuego vadd = new Videojuego();
+		vadd.setNombre(nombre);
+		vadd.setCompania(compania);
+		vadd.setNotaMedia(nota);
+		
+		dv.save(vadd);
+		r.setAttribute("listado", dv.findAll());
+		
+		return "listaVideojuegos";
 		
 	}
 	

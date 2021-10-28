@@ -7,12 +7,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>Listado de juegos:</h1>
-	<h2>${listado}</h2>
-		<form action="detalle" method="post">
-			Id juego:  <input type="text" name="id"><br>
+<h1>Añade un juego::</h1>
+		<form action="addJuego" method="post">
+			Nombre:  <input type="text" name="nombre"><br>
+			Compañia:  <input type="text" name="compania"><br>
+			Nota media:  <input type="number" name="nota"><br>
 			<input type="submit" value="Pulsame">
 		</form>
-	<a href="adicionar">Añade un videojuego</a>
 </body>
 </html>
